@@ -118,6 +118,19 @@ input:focus,select:focus,textarea:focus{outline:0;border-color:var(--blue);box-s
 .alert{margin-top:16px;padding:12px 14px;border-radius:10px;background:#FDECEA;color:#7A1710;border:1px solid #F3C4BF;font-size:14px}
 .privacy{margin:16px 0 0;color:var(--muted);font-size:12.5px;line-height:1.5;text-align:center}
 
+/* Kegiatan */
+.acts{margin-top:22px}
+.card{scroll-margin-top:80px}
+.acts .card-sub{margin-bottom:6px}
+.act{display:flex;gap:14px;padding:16px 0;border-top:1px solid var(--line-soft)}
+.act:first-of-type{border-top:0}
+.act-ic{width:42px;height:42px;border-radius:10px;background:var(--blue-soft);color:var(--blue);display:grid;place-items:center;flex:none}
+.act-ic svg{width:22px;height:22px}
+.act h3{display:flex;flex-wrap:wrap;align-items:center;gap:4px 8px;margin:1px 0 4px;font-size:16px;font-weight:700;line-height:1.3}
+.act p{margin:0;color:var(--muted);font-size:14.5px;line-height:1.55}
+.tag{display:inline-block;padding:2px 8px;border-radius:999px;background:var(--chip);color:var(--muted);font-size:11.5px;font-weight:600;white-space:nowrap}
+.tag.kid{background:#E3F6F5;color:#11706C}
+
 /* Success */
 .ok{text-align:center;padding:30px 20px}
 .ok-ic{width:60px;height:60px;border-radius:50%;background:var(--teal);color:#fff;display:grid;place-items:center;margin:0 auto 16px}
@@ -187,6 +200,32 @@ noscript p{margin:0;padding:14px;background:#FDECEA;color:#7A1710;text-align:cen
   <div class="field" id="programField" style="margin:8px 0 0"><div class="err" role="alert"></div></div>
 
   <form id="regForm" novalidate autocomplete="on">
+    <!-- Kegiatan Open Day SMP-SMA -->
+    <section class="card acts" id="actsSMP" data-for="SMP-SMA" hidden>
+      <h2 class="card-title" data-t="acts_h"></h2>
+      <p class="card-sub" data-t="acts_sub"></p>
+      <div class="act">
+        <span class="act-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6.5C10 5 7.5 4.5 4 4.5v13c3.5 0 6 .5 8 2 2-1.5 4.5-2 8-2v-13c-3.5 0-6 .5-8 2Z"/><path d="M12 6.5v13"/></svg></span>
+        <div><h3><span data-t="a1_t"></span><span class="tag" data-t="tag_par"></span></h3><p data-t="a1_d"></p></div>
+      </div>
+      <div class="act">
+        <span class="act-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m2.5 9 9.5-4.5L21.5 9 12 13.5 2.5 9Z"/><path d="M6.5 11v4.5c1.5 1.5 3.5 2 5.5 2s4-.5 5.5-2V11"/><path d="M21.5 9v5"/></svg></span>
+        <div><h3><span data-t="a2_t"></span><span class="tag" data-t="tag_par"></span></h3><p data-t="a2_d"></p></div>
+      </div>
+      <div class="act">
+        <span class="act-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5h16v10H9l-5 4v-14Z"/><path d="M8 9.5h8M8 12.5h5"/></svg></span>
+        <div><h3><span data-t="a3_t"></span><span class="tag kid" data-t="tag_kid"></span></h3><p data-t="a3_d"></p></div>
+      </div>
+      <div class="act">
+        <span class="act-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 3h5M10 3v6L4.8 18a2 2 0 0 0 1.7 3h11a2 2 0 0 0 1.7-3L14 9V3"/><path d="M7.5 14h9"/></svg></span>
+        <div><h3><span data-t="a4_t"></span><span class="tag kid" data-t="tag_kid"></span></h3><p data-t="a4_d"></p></div>
+      </div>
+      <div class="act">
+        <span class="act-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="4.5" width="17" height="11.5" rx="1.5"/><path d="M2 19.5h20"/><path d="m10 8.5-2 2 2 2M14 8.5l2 2-2 2"/></svg></span>
+        <div><h3><span data-t="a5_t"></span><span class="tag kid" data-t="tag_kid"></span></h3><p data-t="a5_d"></p></div>
+      </div>
+    </section>
+
     <div id="formBody" class="card" hidden>
       <h2 class="card-title" id="formTitle"></h2>
       <p class="card-sub" data-t="sub"></p>
@@ -363,6 +402,19 @@ noscript p{margin:0;padding:14px;background:#FDECEA;color:#7A1710;text-align:cen
       choose: 'Pilih program Open Day',
       p_sd: 'Open Day SD', p_sd_sub: 'Playgroup · TK A · TK B',
       p_smp: 'Open Day SMP–SMA', p_smp_sub: 'Calon siswa SMP & SMA',
+      acts_h: 'Kegiatan Open Day SMP–SMA',
+      acts_sub: 'Satu hari untuk merasakan langsung suasana belajar di Pribadi: orang tua mengenal arah pendidikannya, ananda mencoba serunya kelas kami.',
+      tag_par: 'Orang tua', tag_kid: 'Ananda',
+      a1_t: 'Academic & Guidance Overview',
+      a1_d: 'Kenali lebih dekat kurikulum, cara belajar, dan sistem pendampingan di SMP–SMA Pribadi. Tim akademik dan guidance kami memaparkan bagaimana setiap siswa dibimbing, baik dalam prestasi akademik maupun tumbuh kembang pribadinya.',
+      a2_t: 'College Counselor Overview',
+      a2_d: 'Persiapan menuju perguruan tinggi dimulai sejak dini. College Counselor kami berbagi bagaimana siswa dibantu mengenali minat dan potensinya, memilih jurusan, hingga menyusun rencana studi lanjut dengan percaya diri.',
+      a3_t: 'Fun English',
+      a3_d: 'Kelas bahasa Inggris yang interaktif dan penuh permainan. Ananda diajak berani berbicara, bekerja sama dengan teman baru, dan merasakan bahwa berbahasa Inggris itu menyenangkan.',
+      a4_t: 'Fun Science',
+      a4_d: 'Eksperimen seru yang bisa langsung dicoba. Ananda mengamati, bertanya, dan menemukan jawabannya sendiri, layaknya ilmuwan muda di laboratorium.',
+      a5_t: 'ICT Project',
+      a5_d: 'Ananda merancang proyek digital sederhana bersama guru ICT, sambil mengasah logika, kreativitas, dan cara berpikir seorang pembuat teknologi, bukan sekadar penggunanya.',
       form_sd: 'Formulir Open Day SD', form_smp: 'Formulir Open Day SMP–SMA',
       sub: 'Kolom bertanda * wajib diisi.',
       s_student: 'Data calon peserta didik', s_parent: 'Data orang tua', s_extra: 'Informasi tambahan',
@@ -398,6 +450,19 @@ noscript p{margin:0;padding:14px;background:#FDECEA;color:#7A1710;text-align:cen
       choose: 'Choose an Open Day program',
       p_sd: 'Open Day SD', p_sd_sub: 'Playgroup · TK A · TK B',
       p_smp: 'Open Day SMP–SMA', p_smp_sub: 'Prospective SMP & SMA students',
+      acts_h: 'SMP–SMA Open Day Activities',
+      acts_sub: 'One day to experience learning at Pribadi first-hand: parents discover our educational approach, while children try out our classes.',
+      tag_par: 'Parents', tag_kid: 'Students',
+      a1_t: 'Academic & Guidance Overview',
+      a1_d: 'Get to know the curriculum, learning approach and student support at Pribadi SMP–SMA. Our academic and guidance team explains how every student is mentored, both in academic achievement and in personal growth.',
+      a2_t: 'College Counselor Overview',
+      a2_d: 'University preparation starts early. Our College Counselor shares how students are helped to discover their interests and strengths, choose a major and plan their next step in education with confidence.',
+      a3_t: 'Fun English',
+      a3_d: 'An interactive, game-filled English class. Your child is encouraged to speak up, team up with new friends and discover that using English can be fun.',
+      a4_t: 'Fun Science',
+      a4_d: 'Hands-on experiments to try right away. Your child observes, asks questions and finds the answers on their own, just like a young scientist in the lab.',
+      a5_t: 'ICT Project',
+      a5_d: 'Your child designs a simple digital project with our ICT teacher, building logic, creativity and the mindset of someone who creates technology, not just uses it.',
       form_sd: 'Open Day SD Form', form_smp: 'Open Day SMP–SMA Form',
       sub: 'Fields marked * are required.',
       s_student: 'Student details', s_parent: 'Parent details', s_extra: 'Additional information',
@@ -540,7 +605,7 @@ noscript p{margin:0;padding:14px;background:#FDECEA;color:#7A1710;text-align:cen
       var kl = $('#kelasLainField');
       kl.hidden = true; $('#kelas_lain').value = ''; showErr(kl, '');
     }
-    if (p) setTimeout(function () { body.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 60);
+    if (p) setTimeout(function () { ($('[data-for].card:not([hidden])') || body).scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 60);
   }
 
   $$('input[name=program]').forEach(function (r) {
