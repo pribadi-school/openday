@@ -371,6 +371,7 @@ noscript p{margin:0;padding:var(--s4);background:var(--error-soft);color:var(--e
         <div class="field" data-name="whatsapp" data-required>
           <label class="lbl" for="whatsapp"><span data-t="l_wa"></span><i class="req">*</i></label>
           <input type="tel" id="whatsapp" inputmode="tel" autocomplete="tel" data-ph="ph_wa">
+          <div class="hint" data-t="h_wa"></div>
           <div class="err" role="alert"></div>
         </div>
 
@@ -481,6 +482,7 @@ noscript p{margin:0;padding:var(--s4);background:var(--error-soft);color:var(--e
       l_level: 'Jenjang Pendidikan yang Dituju',
       l_school: 'Asal Sekolah', ph_school: 'Nama sekolah saat ini', h_school: 'Isi “Belum bersekolah” jika ananda belum bersekolah.',
       l_parent: 'Nama Orang Tua', l_wa: 'Nomor WhatsApp', ph_wa: 'Contoh: 0812 3456 7890',
+      h_wa: 'Nomor luar negeri? Awali dengan kode negara, misalnya +41 79 123 45 67.',
       l_addr: 'Alamat', ph_addr: 'Jalan, nomor, kelurahan, kecamatan, kota',
       l_source: 'Sumber Informasi Open Day', sel_source: 'Pilih sumber',
       o_web: 'Website Pribadi School', o_banner: 'Spanduk / Brosur / Baliho', o_friend: 'Teman / Keluarga / Alumni',
@@ -496,7 +498,7 @@ noscript p{margin:0;padding:var(--s4);background:var(--error-soft);color:var(--e
       again: 'Daftarkan ananda lainnya',
       send_err: 'Pendaftaran belum terkirim. Periksa koneksi internet lalu coba lagi. Jika masih gagal, hubungi admission@pribadidepok.sch.id.',
       e_req: 'Kolom ini wajib diisi', e_choose: 'Silakan pilih salah satu', e_min3: 'Minimal 3 karakter', e_age: 'Masukkan usia 1–12 tahun',
-      e_wa: 'Nomor WhatsApp tidak valid, contoh 0812 3456 7890', e_program: 'Silakan pilih program Open Day'
+      e_wa: 'Nomor WhatsApp tidak valid. Contoh: 0812 3456 7890 atau +41 79 123 45 67', e_program: 'Silakan pilih program Open Day'
     },
     en: {
       skip: 'Skip to main content', eyebrow: 'Pribadi School · Open Day 2026',
@@ -530,6 +532,7 @@ noscript p{margin:0;padding:var(--s4);background:var(--error-soft);color:var(--e
       l_level: 'Intended Education Level',
       l_school: 'Current School', ph_school: 'Name of current school', h_school: 'Enter “Not in school” if your child is not yet enrolled.',
       l_parent: "Parent's Name", l_wa: 'WhatsApp Number', ph_wa: 'e.g. 0812 3456 7890',
+      h_wa: 'Number outside Indonesia? Start with the country code, e.g. +41 79 123 45 67.',
       l_addr: 'Address', ph_addr: 'Street, number, village, district, city',
       l_source: 'Source of Open Day Information', sel_source: 'Select source',
       o_web: 'Pribadi School website', o_banner: 'Banner / Brochure / Billboard', o_friend: 'Friend / Family / Alumni',
@@ -545,7 +548,7 @@ noscript p{margin:0;padding:var(--s4);background:var(--error-soft);color:var(--e
       again: 'Register another child',
       send_err: 'Your registration was not sent. Please check your connection and try again. If it still fails, contact admission@pribadidepok.sch.id.',
       e_req: 'This field is required', e_choose: 'Please choose an option', e_min3: 'At least 3 characters', e_age: 'Enter an age from 1 to 12',
-      e_wa: 'Invalid WhatsApp number, e.g. 0812 3456 7890', e_program: 'Please choose an Open Day program'
+      e_wa: 'Invalid WhatsApp number. Example: 0812 3456 7890 or +41 79 123 45 67', e_program: 'Please choose an Open Day program'
     }
   };
 
@@ -595,13 +598,26 @@ noscript p{margin:0;padding:var(--s4);background:var(--error-soft);color:var(--e
   });
 
   /* ---------- Nomor WhatsApp ---------- */
+  /* Hasil: digit dengan kode negara tanpa "+" (format wa.me), atau '' jika tidak valid.
+     Nomor Indonesia boleh ditulis 08…, 8…, 62… atau +62…; nomor luar negeri wajib
+     diawali "+" atau "00" diikuti kode negara (mis. +41, +65). */
   function normPhone(v) {
-    var d = String(v).replace(/[^\d+]/g, '');
-    if (d.charAt(0) === '+') d = d.slice(1);
-    if (d.indexOf('0') === 0) d = '62' + d.slice(1);
-    else if (d.indexOf('8') === 0) d = '62' + d;
-    return /^628\d{7,11}$/.test(d) ? d : '';
+    var raw = String(v).trim().replace(/[\s().\-\/]/g, '');
+    var intl = false;
+    if (raw.charAt(0) === '+') { intl = true; raw = raw.slice(1); }
+    else if (raw.indexOf('00') === 0) { intl = true; raw = raw.slice(2); }
+    if (!/^\d+$/.test(raw)) return '';
+    var d = raw;
+    if (!intl) {
+      if (d.charAt(0) === '0') d = '62' + d.slice(1);
+      else if (d.charAt(0) === '8') d = '62' + d;
+      else if (d.indexOf('62') !== 0) return '';
+    }
+    if (d.indexOf('620') === 0) d = '62' + d.slice(3);   // "+62 0812…"
+    if (d.indexOf('62') === 0) return /^628\d{7,11}$/.test(d) ? d : '';
+    return /^[1-9]\d{7,14}$/.test(d) ? d : '';           // E.164: maks. 15 digit
   }
+
 
   /* ---------- Nilai & validasi ---------- */
   function isOff(f) { return !!f.closest('[hidden]'); }
